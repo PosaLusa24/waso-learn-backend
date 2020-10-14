@@ -1,33 +1,29 @@
 const router = require('express').Router()
 
-router.get('/', (req, res) => {
-  res.send(Object.values(req.context.models.files))
+router.get('/', async (req, res) => {
+  const files = await req.context.models.File.findAll()
+  return res.send(files)
 })
 
-router.get('/:fileId', (req, res) => {
-  res.send(req.context.models.files[req.params.fileId])
+router.get('/:fileId', async (req, res) => {
+  const file = await req.context.models.File.findByPk(req.params.fileId)
+  return res.send(file)
 })
 
-router.post('/', (req, res) => {
-  const file = {
+router.post('/', async (req, res) => {
+  const file = await req.context.models.File.create({
     id: req.body.id,
     name: req.body.name
-  }
-  req.context.models.files[file.id] = file
-  res.send(file)
+  })
+  return res.send(file)
 })
 
 router.put('/:fileId', (req, res) => {
-  res.send("to be implemented");
+  return res.send("to be implemented");
 })
 
 router.delete('/:fileId', (req, res) => {
-  const {
-    [req.params.fileId]: file,
-    ...body
-  } = req.context.models.files
-  req.context.models.files = body
-  res.send(file)
+  return res.send("to be implemented");
 })
 
 module.exports = router

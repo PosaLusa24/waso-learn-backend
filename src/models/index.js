@@ -1,10 +1,12 @@
-module.exports.files = {
-  1: {
-    id: '1',
-    name: 'history',
-  },
-  2: {
-    id: '2',
-    name: 'maths',
-  },
+const Sequelize = require('sequelize')
+
+const sequelize = new Sequelize(process.env.DATABASE_URL)
+
+const models = {
+  File: require('./file.js')(sequelize, Sequelize)
+}
+
+module.exports = {
+  models,
+  sequelize
 }

@@ -1,4 +1,3 @@
-const file = require('./file')
 module.exports = {
-  file
+  file: require('./file')
 }
